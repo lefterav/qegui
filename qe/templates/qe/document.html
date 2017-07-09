@@ -1,0 +1,22 @@
+{% extends "qe/base.html" %}
+
+{% block content %}
+<h1>{{ document.name }} ({{ document.task.name }})</h1>
+<ol class="breadcrumb">
+  <li><a href="{% url "qe:index" %}">Home</a></li>
+  <li><a href="{% url "qe:task" document.task.id %}">{{ document.task.name }}</a></li>
+  <li class="active">{{ document.name }}</li>
+</ol>
+<div class="row">
+	<div class="col-lg-6 col-sm-12" id="average_score">
+		<h3>Average score</h3>
+		<div style="position: relative; top: -5em">
+		{{ average_score_chart }} <div align="center" style="position: relative; top: -15em"><h1>{{ average_score }}</h1></div>
+		</div>
+	</div>
+	<div class="col-lg-6 col-sm-12" id="mass">
+		<h3>Mass distribution of sentence quality scores</h3>
+		{{ chart }}
+	</div>
+</div>
+{% endblock %}

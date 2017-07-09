@@ -1,0 +1,29 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+{% load static %}
+{% load jchart %}
+{% load i18n %}
+<!doctype html>
+<html>
+    <head>
+	    {# Load CSS and JavaScript #}
+		{% bootstrap_css %}
+		{% bootstrap_javascript %}
+    </head>
+    <body>
+    	<div class="container">
+		  <div class="jumbotron">
+		    <h1>QE::GUI</h1>
+		    <p>User Interface for Quality Estimation of Machine Translation</p>
+		  </div>
+		</div>
+		<div class="container">
+			{# Display django.contrib.messages as Bootstrap alerts #}
+			{% bootstrap_messages %}
+			{% block content %}{% endblock %}
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	</body>
+</html>
+

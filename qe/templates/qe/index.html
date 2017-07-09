@@ -1,0 +1,23 @@
+{% extends "qe/base.html" %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<ol class="breadcrumb">
+  <li class="active">Home</li>
+</ol>
+<h2>Tasks</h2>
+<table class="table table-bordered table-hover table-responsive">
+	<th>name</th>
+	<th>description</th>
+	<th>documents</th>
+	<th>total sentences</th>			
+    {% for task in tasks %}
+	<tr>
+		<td><a href="{% url "qe:task" task.id %}">{{ task.name }}</a></td>
+		<td>{{ task.description }}</td>
+		<td>{{ task.documents }}</td>
+		<td>{{ task.total_sentences }}</td>
+	</tr>        
+	{% endfor %}
+</table>
+{% endblock %}

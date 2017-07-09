@@ -1,0 +1,76 @@
+{% extends "qe/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>{{ task.name }}</h1>
+
+<ol class="breadcrumb">
+  <li><a href="{% url "qe:index" %}">Home</a></li>
+  <li><a href="{% url "qe:task" task.id %}">{{ task.name }}</a></li>
+  <li class="active">add document</li>
+</ol>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<p>{% trans "Please enter below the details for a new document to be uploaded." %}</p>
+
+{# Form to collect the data of the document #}
+<form action="{% url 'qe:document_upload' task.id %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	
+	<div class="form-group" id="name_description">
+		<label for="name">Name</label>
+		<input class="form-control" type="text" name="name" />
+		<br/>
+		<label for="name">Description</label>
+		<textarea class="form-control" rows="4" cols="50" name="description"></textarea>
+	</div>
+	
+	<label for="language_direction">Language direction:</label>
+	<div class="form-inline form-group" id="language_direction"> 
+		From
+		{# Source language dropdown #}
+		<select class="form-control" name="source_language">
+		{% for language_id, language_name in languages %}		
+			<option value="{{ language_id }}">{{ language_name }}</option>
+		{% endfor %}
+		</select>
+	
+		to 
+		{# Target language dropdown #}
+		<select class="form-control" name="target_language">
+		{% for language_id, language_name in languages %}		
+			<option value="{{ language_id }}">{{ language_name }}</option>
+		{% endfor %}
+		</select>
+	</div>
+	
+	<div class="form-group" id="sourcefile"> 
+		<label for="sourcefile" >Source file</label>
+		<br/>
+		<label class="btn btn-default btn-file" for="sourcefile" >
+		<input type="file" name="sourcefile" />
+		</label>
+	</div>
+	<div class="form-group" id="sourcefile"> 
+		<label for="targetfile" >Target file</label>
+		<br/>
+		<label class="btn btn-default btn-file" for="targetfile" >
+		<input type="file" name="targetfile" />
+		</label>
+	</div>
+	<div class="form-group" id="referencefile"> 
+		<label for="referencefile" >Document file</label>
+		<br/>
+		<label class="btn btn-default btn-file" for="referencefile" >
+		<input type="file" name="referencefile" />
+		</label>
+	</div>
+	<input type="hidden" name="task_id" value="{{ task.id }}" />
+	<input class="btn btn-default" type="submit" value="Submit" />
+</form>
+
+<script>
+    $("#upload_form").uploadprogress({redirect_url: "/"})
+</script>
+{% endblock  %}

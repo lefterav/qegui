@@ -1,0 +1,29 @@
+{% extends "qe/base.html" %}
+
+{% block content %}
+<h1>{{ task.name }} </h1>
+<ol class="breadcrumb">
+  <li><a href="{% url "qe:index" %}">Home</a></li>
+  <li class="active">{{ task.name }}</li>
+</ol>
+<h2>Documents</h2>
+<table class="table table-bordered table-hover table-responsive">
+	<th>name</th>
+	<th>description</th>
+	<th>sentences</th>
+	<th>source language</th>
+	<th>target language</th>
+	{% for document in documents %}
+	<tr>
+		<td><a href="{% url "qe:document" document.task.id document.id %}">{{ document.name }}</a></td>
+		<td>{{ document.description }}</td>
+		<td>{{ document.total_sentences }}</td>
+		<td>{{ document.get_source_language_display }}</td>
+		<td>{{ document.get_target_language_display }}</td>
+	<tr>
+	{% endfor %}
+</table>
+<div class="link">
+	<a href="{% url 'qe:document_add' task.id %}" class="btn">Add document</a>
+</div>
+{% endblock %}
