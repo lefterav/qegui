@@ -156,7 +156,6 @@ class AbstractSentence(models.Model):
         abstract = True
 
 
-@python_2_unicode_compatible
 class Sentence(AbstractSentence):
     """
     contains the text of the original sentence to be translated
@@ -173,7 +172,6 @@ class Sentence(AbstractSentence):
         return self.document.target_language
 
 
-@python_2_unicode_compatible
 class MachineTranslation(AbstractSentence):
     """
     includes a machine translation output for a given source sentence
@@ -190,7 +188,6 @@ class MachineTranslation(AbstractSentence):
     )
 
 
-@python_2_unicode_compatible
 class ReferenceTranslation(AbstractSentence):
     """
     includes a reference translation for a given source sentence
