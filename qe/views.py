@@ -11,6 +11,7 @@ from .charts import AverageScoreChart
 from .charts import ScoreMassChart
 from .models import Document, Task, MachineTranslationEvaluation
 from .tasks import process_sentences
+from qe.charts import QuartileChart
 
 
 def index(request):
@@ -75,24 +76,24 @@ def document(request, task_id, document_id):
         chart = ScoreMassChart()
         chart_html = chart.as_html(document_id=document_id)
         
-        
-        
         # calculate average score
         scores = MachineTranslationEvaluation \
             .objects.filter(translation__source__document_id=document_id) \
             .values_list('score', flat=True)
         
-        
         average_score = round((1.0 * sum(scores)) / len(scores), 2)
-        
         average_score_chart = AverageScoreChart()
         average_score_chart_html = average_score_chart.as_html(average_score)
+        
+        quartile_chart = QuartileChart()
+        quartile_chart_html = quartile_chart.as_html(document_id)
         
     context = {
                'document': document,
                'chart': chart_html,
                'average_score_chart': average_score_chart_html,
                'average_score': average_score,
+               'quartile_chart': quartile_chart_html
                }
     
     return render(request, 'qe/document.html', context)

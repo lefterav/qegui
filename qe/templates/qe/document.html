@@ -14,13 +14,19 @@
 </ul>
 
 <div class="row">
-	<div class="col-lg-6 col-sm-12" id="average_score">
+	<div class="col-lg-6 col-sm-12" id="average_score" style="height: 35em; overflow: hidden">
 		<h3>Average score</h3>
 		<div style="position: relative; top: -5em">
-		{{ average_score_chart }} <div align="center" style="position: relative; top: -15em"><h1>{{ average_score }}</h1></div>
+		{{ average_score_chart }} <div align="center" style="position: relative; top: -18em;"><h1>{{ average_score }}</h1></div>
 		</div>
 	</div>
-	<div class="col-lg-6 col-sm-12" id="mass">
+	<div class="col-lg-1 col-sm-2" id="spaceholder"></div>
+	<div class="col-lg-4 col-sm-12" id="quartile">
+		<h3>Score quartiles</h3>
+		{{ quartile_chart }} 
+	</div>
+	
+	<div class="col-lg-12 col-sm-24" id="mass">
 		<h3>Mass distribution of sentence quality scores</h3>
 		{{ chart }}
 	</div>
