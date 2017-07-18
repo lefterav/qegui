@@ -1,14 +1,17 @@
 '''
 @author: lefterav
 '''
+import random
+
 from background_task import background
-from django.shortcuts import get_object_or_404
+
 from .models import Document, Sentence, MachineTranslation 
+from .models import DocumentEvaluation
 from .models import MachineTranslationEvaluation
 from .models import ReferenceTranslation
-from .models import DocumentEvaluation, QEModel
-import random
-import time
+
+#uncomment and change PYTHONPATH to get into production mode
+#from qualitative import evaluate
 
 @background
 def process_sentences(document_id):
@@ -90,6 +93,9 @@ def evaluate_sentences(document_id):
             MachineTranslationEvaluation(
                                          translation=translation,
                                          evaluation=evaluation,
+                                         # Uncomment to get into production mode
+                                         #score=evaluate(sentence.text, translation.text)
+                                         # Demo mode, get a random number
                                          score=0.01*random.randrange(000,100)
                                         )
         translation_evaluation.save()
