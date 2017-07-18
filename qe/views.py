@@ -1,16 +1,15 @@
 from django.conf import settings
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models.aggregates import Count
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls.base import reverse
 from django.utils.translation import ugettext as _
 
-from qe.models import MachineTranslationEvaluation
-
 from .charts import AverageScoreChart
 from .charts import ScoreMassChart
-from .models import Document, Task
+from .models import Document, Task, MachineTranslationEvaluation
 from .tasks import process_sentences
 
 
@@ -144,4 +143,29 @@ def document_upload(request, task_id):
                                               document.id)
                                         )
                                 )
+    
+def document_sentences(request, task_id, document_id):
+    evaluation_list = MachineTranslationEvaluation.objects.order_by('score')
+    paginator = Paginator(evaluation_list, 10) # Show 10 evaluations per page_id
+    document = get_object_or_404(Document, pk=document_id, task_id=task_id)
+    
+    page_id = request.GET.get('page')
+
+
+    try:
+        evaluations = paginator.page(page_id)
+    except PageNotAnInteger:
+        # If page_id is not an integer, deliver first page_id.
+        evaluations = paginator.page(1)
+    except EmptyPage:
+        # If page_id is out of range (e.g. 9999), deliver last page_id of results.
+        evaluations = paginator.page(paginator.num_pages)
+    
+    context = {'evaluations': evaluations,
+               'document': document,
+               'show_first': int(page_id)-3,
+               'show_last': int(page_id)+3,
+               'end_index': paginator.num_pages
+                }
+    return render(request, 'qe/document_sentences.html', context)
     

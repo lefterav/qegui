@@ -58,7 +58,7 @@ class ScoreMassChart(Chart):
                   ],
         'yAxes': [Axes(type='linear', 
                        scaleLabel=ScaleLabel(display=True, 
-                                             labelString='number of sentences',
+                                             labelString='% of sentences',
                                              ),
                        #ticks={'stepSize': 1},
                        )
@@ -67,57 +67,35 @@ class ScoreMassChart(Chart):
 
     def get_datasets(self, document_id):
         
-        translation_evaluations = \
-            MachineTranslationEvaluation.objects. \
-            filter(translation__source__document_id=document_id)
-        scores = sorted([round(t.score, 1) for t in translation_evaluations])
-        
-        q1=0
-        q2=0
-        q3=0
-        q4=0
-        
-        total = len(scores)
-        
-        dotsdata = []
-        linedata = []
-        for score in sorted(list(set(scores))):
+        total = MachineTranslationEvaluation.objects. \
+            filter(translation__source__document_id=document_id).count()
+    
+        count_0 = MachineTranslationEvaluation.objects. \
+                filter(translation__source__document_id=document_id,
+                       score=0).count()
+                       
+        count_1 = MachineTranslationEvaluation.objects. \
+                filter(translation__source__document_id=document_id,
+                       score=1).count()
+    
+        dotsdata = [{'x': 0, 'y': count_0*100.0/total}]
+        #for score in sorted(list(set(scores))):
+        step = 0.1
+        for min_score in [round(x * step, 4) for x in range(0, 10)]:
+            max_score = min_score+step 
             evaluations_per_score = \
                 MachineTranslationEvaluation.objects. \
                 filter(translation__source__document_id=document_id,
-                       score=score).count()
-                   
+                       score__gte=min_score, 
+                       score__lte=max_score).count()
+            
+            score = (max_score - min_score)*.5 + min_score
             dotsdata.append({'x': score, 'y': 100.0*evaluations_per_score/total})
             
-            # split in quartiles:
-
-            
-        #for score in scores:
-        #    if score < 0.25:
-        #        q1+=1
-        #    elif score < 0.5:
-        #        q2+=1
-        #    elif score < 0.75:
-        #        q3+=1
-        #    else:
-        #        q4+=1
-        
-        #total = total*25
-        
-        #linedata.append({'x': 0, 'y': q1*100.0/total})
-        #linedata.append({'x': 0.5, 'y': q2*100.0/total})
-        #linedata.append({'x': 0.75, 'y': q3*100.0/total})
-        #linedata.append({'x': 1.00, 'y': q4*100.0/total})
-        #linedata.append({'x': 1.0, 'y': q4*100.0/total})
-
+        dotsdata.append({'x': 1, 'y': count_1*100.0/total})
+     
             
         return [
-                #DataSet(type='line',
-                #        data=linedata, 
-                #        label="quartile tension line",
-                #        pointRadius=1,
-                #        fill=False,
-                #        ),
                 DataSet(type='line',
                         data=dotsdata, 
                         label="mass per decimile",

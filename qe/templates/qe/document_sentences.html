@@ -1,0 +1,95 @@
+{% extends "qe/base.html" %}
+
+{% block content %}
+<h1>{{ document.name }} ({{ document.task.name }})</h1>
+<ol class="breadcrumb">
+  <li><a href="{% url "qe:index" %}">Home</a></li>
+  <li><a href="{% url "qe:task" document.task.id %}">{{ document.task.name }}</a></li>
+  <li><a href="{% url "qe:document" document.task.id  document.id %}">{{ document.name }}</a></li>
+  <li class="active">sentences</li>
+</ol>
+
+<ul class="nav nav-tabs">
+  <li><a href="{% url "qe:document" document.task.id  document.id %}">sentence statistics</a></li>
+  <li class="active"><a href="#">sentence statistics</a></li>
+</ul>
+
+<h2> Sentences ordered by ascending quality score</h2>
+
+{% if evaluations.has_other_pages %}
+  <ul class="pagination">
+    {% if evaluations.has_previous %}
+      <li><a href="?page={{ evaluations.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in evaluations.paginator.page_range %}
+      {% if evaluations.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% elif i > show_first and i < evaluations.number  %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% elif i < show_last and i > evaluations.number  %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>        
+      {% elif i == 1 %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li><li class="disabled"><a href="#">...</a></li>
+      {% elif i == end_index %}
+        <li class="disabled"><a href="#">...</a></li><li><a href="?page={{ i }}">{{ i }}</a></li>  
+      {% endif %}
+    {% endfor %}
+    {% if evaluations.has_next %}
+      <li><a href="?page={{ evaluations.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+<table class="table table-bordered table-hover table-responsive">
+<tr>
+	<th>id</th>
+	<th>source</th>
+	<th>translation</th>
+	<th>score</th>
+</tr>
+{% for evaluation in evaluations %}
+<tr>
+	<td>{{ evaluation.translation.source.id }}</td>
+	<td>{{ evaluation.translation.source.text }}</td>
+	<td>{{ evaluation.translation.text }}</td>
+	<td>{{ evaluation.score }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% if evaluations.has_other_pages %}
+  <ul class="pagination">
+    {% if evaluations.has_previous %}
+      <li><a href="?page={{ evaluations.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in evaluations.paginator.page_range %}
+      {% if evaluations.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% elif i > show_first and i < evaluations.number  %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% elif i < show_last and i > evaluations.number  %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>        
+      {% elif i == 1 %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li><li class="disabled"><a href="#">...</a></li>
+      {% elif i == end_index %}
+        <li class="disabled"><a href="#">...</a></li><li><a href="?page={{ i }}">{{ i }}</a></li>  
+      {% endif %}
+    {% endfor %}
+    {% if evaluations.has_next %}
+      <li><a href="?page={{ evaluations.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+
+{% endblock %}
