@@ -11,7 +11,7 @@ from .charts import AverageScoreChart
 from .charts import ScoreMassChart
 from .models import Document, Task, MachineTranslationEvaluation
 from .tasks import process_sentences
-from qe.charts import QuartileChart
+from .charts import QuartileChart
 
 
 def index(request):
