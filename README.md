@@ -1,28 +1,22 @@
----
-abstract: |
-    Despite its wide applicability, Quality Estimation (QE) of Machine
-    Translation (MT) poses a difficult entry barrier since there are no open
-    source tools with a graphical user interface (GUI). Here we present a
-    tool in this direction by connecting the back-end of the QE
-    decision-making mechanism with a web-based GUI. The interface allows the
-    user to post requests to the QE engine and get a visual response with
-    the results. Additionally we provide pre-trained QE models for easier
-    launching of the app. The tool is written in Python so that it can
-    leverage the rich natural language processing capabilities of the
-    popular dynamic programming language, which is at the same time
-    supported by top web-server environments.
-author:
-- |
-    firstname=Eleftherios, surname=Avramidis, corresponding=yes,
-    email=<span>eleftherios.avramidis@dfki.de</span>, address=<span>German
-    Research Center for Artificial Intelligence (DFKI GmbH)\
-    Language Technology Lab\
-    Alt Moabit 91c\
-    10559, Berlin, Germany</span>
-bibliography:
-- 'library.bib'
-title: 'QE::GUI – A Graphical User Interface for Quality Estimation'
-...
+QE::GUI – A Graphical User Interface for Quality Estimation
+===========================================================
+
+-   [Introduction](#introduction)
+-   [Related Work](#sec:related)
+-   [Usage](#sec:usage)
+    -   [Organization of evaluation
+        tasks](#organization-of-evaluation-tasks)
+    -   [Results and statistics](#results-and-statistics)
+    -   [Administration interface](#administration-interface)
+    -   [Deployment](#deployment)
+-   [Implementation](#sec:architecture)
+    -   [Database structure](#database-structure)
+    -   [Serving the data to the user](#serving-the-data-to-the-user)
+    -   [Asynchronous data processing](#asynchronous-data-processing)
+    -   [Quality Estimation](#quality-estimation)
+-   [Further work](#sec:further)
+-   [Conclusion](#sec:conclusion)
+    -   [Acknowledgment](#acknowledgment)
 
 Introduction
 ============
