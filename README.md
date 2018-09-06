@@ -198,7 +198,7 @@ models and translation systems.
 Installation
 ------------
 
-1. Install Django version 1.11 with virtualenv and activate the virtual environment. Run the following commands within the virtual environment 
+1. Install Django version 1.11 with virtualenv and activate the virtual environment [following these instructions](https://www.howtoforge.com/tutorial/how-to-install-django-on-ubuntu/#-install-django-with-virtualenv). Run the following commands within the virtual environment 
 
 2. Install system requirements (Ubuntu example) 
 
