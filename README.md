@@ -8,6 +8,7 @@ QE::GUI – A Graphical User Interface for Quality Estimation
         tasks](#organization-of-evaluation-tasks)
     -   [Results and statistics](#results-and-statistics)
     -   [Administration interface](#administration-interface)
+    -   [Installation](#installation)
     -   [Deployment](#deployment)
 -   [Implementation](#sec:architecture)
     -   [Database structure](#database-structure)
