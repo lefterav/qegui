@@ -202,25 +202,29 @@ Installation
 
 2. Install system requirements (Ubuntu example) 
 
-```sudo apt install python3-dev
+```
+sudo apt install python3-dev
 ```
 
 3. download and unzip the code of qe-gui (e.g. in the directory qegui-master)
 
-```cd qequi-master
+```
+cd qequi-master
 pip3 install -r requirements.txt 
 ```
 
 4. initialize the database
 
-```python3 manage.py migrate
+```
+python3 manage.py migrate
 ```
 
 5. start the development webserver
 
 6. create a superuser account and start the server
 
-```python3 manage.py createsuperuser
+```
+python3 manage.py createsuperuser
 python3 manage.py startserver
 ```
 
