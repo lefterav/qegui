@@ -193,6 +193,43 @@ functionality such as adding tasks, manually adding document sentences
 and translations, deleting tasks and documents and defining supported QE
 models and translation systems.
 
+
+Installation
+------------
+
+1. Install Django version 1.11 with virtualenv and activate the virtual environment. Run the following commands within the virtual environment 
+
+2. Install system requirements (Ubuntu example) 
+
+```sudo apt install python3-dev
+```
+
+3. download and unzip the code of qe-gui (e.g. in the directory qegui-master)
+
+```cd qequi-master
+pip3 install -r requirements.txt 
+```
+
+4. initialize the database
+
+```python3 manage.py migrate
+```
+
+5. start the development webserver
+
+6. create a superuser account and start the server
+
+```python3 manage.py createsuperuser
+python3 manage.py startserver
+```
+
+7. point your browser to http://127.0.0.1:8000/admin/ and log in, for setting up the experiments
+
+- add at least one System (e.g. Uedin2018) and one Task (e.g WMT18) then add one document. (note: ignore the Model field, different QE models are not yet supported by the system). 
+
+8. point your browser to http://127.0.0.1:8000/qe for seeing the visualisations
+
+
 Deployment
 ----------
 
