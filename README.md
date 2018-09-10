@@ -219,18 +219,19 @@ pip3 install -r requirements.txt
 python3 manage.py migrate
 ```
 
-5. start the development webserver
-
-6. create a superuser account and start the server
+5. create a superuser account and start the server
 
 ```
 python3 manage.py createsuperuser
-python3 manage.py startserver
+python3 manage.py runserver [PORT]
 ```
 
 7. point your browser to http://127.0.0.1:8000/admin/ and log in, for setting up the experiments
 
-- add at least one System (e.g. Uedin2018) and one Task (e.g WMT18) then add one document. (note: ignore the Model field, different QE models are not yet supported by the system). 
+- add at least one System (e.g. Uedin2018) and one Task (e.g WMT18) at the admin panel in the QE section.
+-  then navigate to http://127.0.0.1:8000/qe and add one document under the task. 
+
+(note: at some points at the admin panel, the Model field appears. Please ignore this field as different QE models are not yet supported by the system). 
 
 8. point your browser to http://127.0.0.1:8000/qe for seeing the visualisations
 
