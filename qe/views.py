@@ -60,6 +60,7 @@ def document(request, task_id, document_id):
     average_score = 0
     chart_html = ""
     average_score_chart_html = ""
+    quartile_chart_html = "" 
     
     
     if not document.imported:
