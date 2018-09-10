@@ -203,7 +203,7 @@ Installation
 2. Install system requirements (Ubuntu example) 
 
 ```
-sudo apt install python3-dev
+sudo apt install python3-dev python3-pip python3-setuptools graphviz-dev
 ```
 
 3. download and unzip the code of qe-gui (e.g. in the directory qegui-master)
