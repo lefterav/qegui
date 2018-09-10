@@ -226,7 +226,7 @@ python3 manage.py createsuperuser
 python3 manage.py runserver [PORT]
 ```
 
-7. point your browser to http://127.0.0.1:8000/admin/ and log in, for setting up the experiments
+7. point your browser to http://127.0.0.1:8000/admin/qe and log in, for setting up the experiments
 
 - add at least one System (e.g. Uedin2018) and one Task (e.g WMT18) at the admin panel in the QE section.
 -  then navigate to http://127.0.0.1:8000/qe and add one document under the task. 
